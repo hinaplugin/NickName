@@ -1,0 +1,30 @@
+name: NickName
+version: '1.0.0'
+main: com.hinaplugin.nickName.NickName
+api-version: '1.20'
+authors: [ hina2113 ]
+
+commands:
+  nick:
+    permission: nick.commands
+
+permissions:
+  nick.admin:
+    children:
+      - nick.commands
+      - nick.commands.set
+      - nick.commands.setother
+      - nick.commands.unset
+      - nick.commands.unsetother
+    default: op
+  nick.player:
+    children:
+      - nick.commands
+      - nick.commands.set
+      - nick.commands.unset
+    default: true
+  nick.commands: {}
+  nick.commands.set: {}
+  nick.commands.setother: {}
+  nick.commands.unset: {}
+  nick.commands.unsetother: {}
