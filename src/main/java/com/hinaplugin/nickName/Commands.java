@@ -50,6 +50,7 @@ public class Commands implements CommandExecutor, TabCompleter {
                             player.displayName(team.prefix().append(Component.text(strings[1])).append(team.suffix()).color(team.color()));
                             player.playerListName(team.prefix().append(Component.text(strings[1])).append(team.suffix()).color(team.color()));
                         }
+                        this.set(player, strings[1]);
                         player.sendMessage(miniMessage.deserialize("<green>ニックネームを[" + strings[1] + "]に設定しました．"));
                     }else {
                         player.sendMessage(miniMessage.deserialize("<red>このコマンドを使用する権限がありません．"));
@@ -83,6 +84,7 @@ public class Commands implements CommandExecutor, TabCompleter {
                             target.displayName(team.prefix().append(Component.text(strings[2])).append(team.suffix()).color(team.color()));
                             target.playerListName(team.prefix().append(Component.text(strings[2])).append(team.suffix()).color(team.color()));
                         }
+                        this.set(target, strings[2]);
                         player.sendMessage(miniMessage.deserialize("<green>" + strings[1] + "のニックネームを[" + strings[1] + "]に設定しました．"));
                     }else {
                         player.sendMessage(miniMessage.deserialize("<red>このコマンドを使用する権限がありません．"));
@@ -99,6 +101,7 @@ public class Commands implements CommandExecutor, TabCompleter {
                             player.displayName(team.prefix().append(Component.text(player.getName())).append(team.suffix()).color(team.color()));
                             player.playerListName(team.prefix().append(Component.text(player.getName())).append(team.suffix()).color(team.color()));
                         }
+                        this.set(player, null);
                         player.sendMessage(miniMessage.deserialize("<green>ニックネームをリセットしました．"));
                     }else {
                         player.sendMessage(miniMessage.deserialize("<red>このコマンドを使用する権限がありません．"));
@@ -128,6 +131,7 @@ public class Commands implements CommandExecutor, TabCompleter {
                             target.displayName(team.prefix().append(Component.text(player.getName())).append(team.suffix()).color(team.color()));
                             target.playerListName(team.prefix().append(Component.text(player.getName())).append(team.suffix()).color(team.color()));
                         }
+                        this.set(target, null);
                         player.sendMessage(miniMessage.deserialize("<green>" + strings[1] + "のニックネームをリセットしました．"));
                     }else {
                         player.sendMessage(miniMessage.deserialize("<red>このコマンドを使用する権限がありません．"));
@@ -162,5 +166,10 @@ public class Commands implements CommandExecutor, TabCompleter {
             }
         }
         return complete;
+    }
+
+    private void set(Player player, String nickname){
+        NickName.config.set("nickname." + player.getName(), nickname);
+        NickName.plugin.save();
     }
 }
